@@ -1,0 +1,17 @@
+{
+  "name": "stacktracks-server",
+  "version": "1.0.0",
+  "description": "The server files for Stacktracks, a top-down multiplayer racer made at Fullstack Academy.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Kevin Hurley",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "shortid": "^2.2.6",
+    "socket.io": "^1.4.8"
+  }
+}
