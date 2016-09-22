@@ -11,7 +11,7 @@ io.on('connection', function(socket) {
   var thisPlayer = {id: thisPlayerId};
 
   console.log('client id: ' + thisPlayerId + ' connected, broadcasting spawn');
-  socket.broadcast.emit('spawn');
+  socket.broadcast.emit('spawn', thisPlayer);
 
   players.push(thisPlayer);
   console.log('Current connected players: ', players);
@@ -31,6 +31,7 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     console.log('player with id '+ thisPlayerId +' disconnected');
     players.splice(players.indexOf(thisPlayer), 1);
+    socket.broadcast.emit('disconnected', thisPlayer);
   })
 
 })
