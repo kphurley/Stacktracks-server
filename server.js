@@ -65,7 +65,7 @@ io.on('connection', function(socket) {
     if(!completionTimes.includes(newTime)){
       completionTimes.push(newTime);
       completionTimes.sort((a,b) => a.time<b.time);
-      socket.emit('leaderboard', completionTimes);
+      socket.emit('leaderboard', {times: completionTimes});
     }
   });
 
