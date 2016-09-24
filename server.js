@@ -62,7 +62,7 @@ io.on('connection', function(socket) {
   socket.on('completionTime', function(timeJson){
     console.log('Completion time recorded: ', timeJson.time);
     let newTime = {id: thisPlayerId, time: timeJson.time};
-    let dupes = completionTimes.filter(obj=>obj.id===thisPlayerId && time===timeJson.time);
+    let dupes = completionTimes.filter(obj=>obj.id===thisPlayerId && obj.time===timeJson.time);
     if(dupes.length === 0){
       completionTimes.push(newTime);
       completionTimes.sort((a,b) => a.time<b.time);
