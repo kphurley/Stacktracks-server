@@ -5,6 +5,7 @@ console.log('server started');
 
 var players = [];
 var gameState = {};
+var completionTimes = [];
 
 const TICK_RATE = 50;
 
@@ -54,6 +55,12 @@ io.on('connection', function(socket) {
     delete gameState[thisPlayer.id];
     socket.broadcast.emit('disconnected', thisPlayer);
     console.log('Currently connected players: ', players);
+  });
+
+  //handle high score events
+  //timeJson will have the form: {"time": "min:sec:ms"}
+  socket.on('completionTime', function(timeJson){
+    console.log('Completion time recorded: ', timeJson.time);
   });
 
 });
