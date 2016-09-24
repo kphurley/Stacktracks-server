@@ -57,10 +57,16 @@ io.on('connection', function(socket) {
     console.log('Currently connected players: ', players);
   });
 
-  //handle high score events
+  //handle high score events and the leaderboard
   //timeJson will have the form: {"time": "min:sec:ms"}
   socket.on('completionTime', function(timeJson){
-    console.log('Completion time recorded: ', timeJson.time);
+    //console.log('Completion time recorded: ', timeJson.time);
+    let newTime = {id: thisPlayerId, time: timeJson.time};
+    if(!completionTimes.includes(newTime)){
+      completionTimes.push(newTime);
+      completionTimes.sort((a,b) => a.time<b.time);
+      socket.emit('leaderboard', completionTimes);
+    }
   });
 
 });
