@@ -36,6 +36,11 @@ io.on('connection', function(socket) {
     socket.emit('spawn', player);
   })
 
+  socket.on('setUsername', function(data) {
+    thisPlayer.username = data.username;
+    console.log('Recieved username: ', thisPlayer.username);
+  });
+
   //When a client sends a move action, replace what is in the state with data
   /*
     data should have the object signature:
@@ -61,7 +66,7 @@ io.on('connection', function(socket) {
   //timeJson will have the form: {"time": "min:sec:ms"}
   socket.on('completionTime', function(timeJson){
     console.log('Completion time recorded: ', timeJson.time);
-    let newTime = {id: thisPlayerId, time: timeJson.time};
+    let newTime = {id: thisPlayer.id, username: thisPlayer.username, time: timeJson.time};
     let dupes = completionTimes.filter(obj=>obj.id===thisPlayerId && obj.time===timeJson.time);
     if(dupes.length === 0){
       completionTimes.push(newTime);
