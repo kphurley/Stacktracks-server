@@ -15,10 +15,6 @@ io.on('connection', function(socket) {
   var thisPlayerId = shortid.generate();
   var thisPlayer = {id: thisPlayerId};
 
-  //Broadcast this spawn to the other clients
-  console.log('client id: ' + thisPlayerId + ' connected, broadcasting spawn');
-  socket.broadcast.emit('spawn', thisPlayer);
-
   //Push this player onto the player list
   players.push(thisPlayer);
 
@@ -39,6 +35,10 @@ io.on('connection', function(socket) {
   socket.on('setUsername', function(data) {
     thisPlayer.username = data.username;
     console.log('Recieved username: ', thisPlayer.username);
+
+    //Broadcast this spawn to the other clients
+    console.log('client id: ' + thisPlayerId + ' connected and has username, broadcasting spawn');
+    socket.broadcast.emit('spawn', thisPlayer);
   });
 
   //When a client sends a move action, replace what is in the state with data
